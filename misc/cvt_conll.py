@@ -38,13 +38,26 @@ def convert_file(input_name, sup_output_name, query_output_name):
     
 
 if __name__ == '__main__':
-    output_base_dir = 'data/few-nerd'
+    parser = argparse.ArgumentParser()
+
+    # Required parameters
+    parser.add_argument(
+        "--data_dir",
+        default=None,
+        type=str,
+        required=True,
+        help="The input data dir. Should contain the training files for the few_nerd task.",
+    )
+
+    args = parser.parse_args()
+
+    output_base_dir = f'{args.data_dir}/few-nerd'
     support_file_prefix = 'support_'
     query_file_prefix = 'query_'
     print(os.getcwd())    
     # ensure the folders are already created beforehand
     
-    all_input_files = glob.glob('**/*.jsonl', recursive=True)
+    all_input_files = glob.glob(f'{args.data_dir}/episode-data/*/*.jsonl', recursive=True)
 
     for file in tqdm(all_input_files):
         input_base_name = os.path.basename(file).split('.')[0] # just take the base name
