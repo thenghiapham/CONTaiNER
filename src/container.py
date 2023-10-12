@@ -401,7 +401,7 @@ def trans_stats(args, labels):
 
     Reference: https://aclanthology.org/2020.emnlp-main.516.pdf
     '''
-    tag_lists = get_tags(args.data_dir + '/train.txt', labels, True)
+    tag_lists = get_tags(args.data_dir + '/train.conll', labels, True)
     s_o, s_i = 0., 0.
     o_o, o_i = 0., 0.
     i_o, i_i, x_y = 0., 0., 0.
