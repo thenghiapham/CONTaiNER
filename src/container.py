@@ -716,7 +716,7 @@ def main():
         # Save predictions
         output_test_predictions_file = os.path.join(args.output_dir, "predictions.txt")
         with open(output_test_predictions_file, "w") as writer:
-            with open(os.path.join(args.data_dir, "{}.txt".format(args.test_path)), "r") as f:
+            with open(os.path.join(args.data_dir, "{}.conll".format(args.test_path)), "r") as f:
                 example_id = 0
                 prev_null = False
                 for line in f:
