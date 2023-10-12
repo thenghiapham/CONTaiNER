@@ -513,6 +513,12 @@ def main():
         help="Path to a file containing all train labels.",
     )
     parser.add_argument(
+        "--labels-finetune",
+        default="",
+        type=str,
+        help="Path to a file containing all finetune labels.",
+    )
+    parser.add_argument(
         "--labels-test",
         default="",
         type=str,
@@ -612,6 +618,10 @@ def main():
     set_seeds(args)
     labels_train = get_labels(args.labels_train)
     labels_test = get_labels(args.labels_test)
+    if args.label_finetune == '':
+        labels_finetune = labels_test
+    else:
+        labels_finetune = get_labels(args.labels_finetune)
     num_labels = len(labels_train)
     # Use cross entropy ignore index as padding label id so that only real label ids contribute to the loss later
     pad_token_label_id = CrossEntropyLoss().ignore_index
@@ -688,7 +698,7 @@ def main():
             model = BertForTokenClassification.from_pretrained(args.saved_model_dir)
         model.to(args.device)
 
-        finetune_support(args, model, tokenizer, labels_test, pad_token_label_id)
+        finetune_support(args, model, tokenizer, labels_finetune, pad_token_label_id)
         if not os.path.exists(args.output_dir):
             os.makedirs(args.output_dir)
 
