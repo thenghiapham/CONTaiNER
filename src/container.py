@@ -645,7 +645,7 @@ def main():
 
     # Training
     if args.do_train:
-        train_dataset = read_and_load_examples(args, tokenizer, labels_train, pad_token_label_id, mode="train", mergeB=True)
+        train_dataset = read_and_load_examples(args, tokenizer, labels_train, pad_token_label_id, mode="train_removed_sentence", mergeB=True)
         global_step, tr_loss = train(args, train_dataset, model)
         logger.info(" global_step = %s, average loss = %s", global_step, tr_loss)
 
