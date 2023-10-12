@@ -618,7 +618,7 @@ def main():
     set_seeds(args)
     labels_train = get_labels(args.labels_train)
     labels_test = get_labels(args.labels_test)
-    if args.label_finetune == '':
+    if args.labels_finetune == '':
         labels_finetune = labels_test
     else:
         labels_finetune = get_labels(args.labels_finetune)
