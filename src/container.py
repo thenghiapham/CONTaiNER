@@ -39,8 +39,12 @@ def finetune_support(args, model, tokenizer, labels, pad_token_label_id):
     previous_score = 1e+6 # infinity placeholder
     sup_dataset = read_and_load_examples(args, tokenizer, labels, pad_token_label_id, mode=args.support_path,
                                             mergeB=True)
-    sampler = SequentialSampler(sup_dataset)
-    dataloader = DataLoader(sup_dataset, sampler=sampler, batch_size=len(sup_dataset))
+    if len(sup_dataset) < args.train_batch_size:
+        sampler = SequentialSampler(sup_dataset)
+        dataloader = DataLoader(sup_dataset, sampler=sampler, batch_size=len(sup_dataset))
+    else:
+        sampler = RandomSampler(sup_dataset)
+        dataloader = DataLoader(sup_dataset, sampler=sampler, batch_size=args.train_batch_size)
 
     # Prepare optimizer and schedule (linear warmup and decay)
     no_decay = ["bias", "LayerNorm.weight"]
