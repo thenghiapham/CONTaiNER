@@ -405,7 +405,7 @@ def trans_stats(args, labels):
 
     Reference: https://aclanthology.org/2020.emnlp-main.516.pdf
     '''
-    tag_lists = get_tags(args.data_dir + '/train.conll', labels, True)
+    tag_lists = get_tags(args.data_dir + '/train_removed_sentence_no_io.conll', labels, True)
     s_o, s_i = 0., 0.
     o_o, o_i = 0., 0.
     i_o, i_i, x_y = 0., 0., 0.
@@ -659,7 +659,7 @@ def main():
 
     # Training
     if args.do_train:
-        train_dataset = read_and_load_examples(args, tokenizer, labels_train, pad_token_label_id, mode="train_removed_sentence", mergeB=True)
+        train_dataset = read_and_load_examples(args, tokenizer, labels_train, pad_token_label_id, mode="train_removed_sentence_no_io", mergeB=True)
         global_step, tr_loss = train(args, train_dataset, model)
         logger.info(" global_step = %s, average loss = %s", global_step, tr_loss)
 
