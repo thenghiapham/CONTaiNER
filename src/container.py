@@ -555,7 +555,7 @@ def main():
 
     parser.add_argument("--train_batch_size", default=8, type=int, help="Batch size per GPU/CPU for training.")
     parser.add_argument(
-        "--eval_batch_size", default=8, type=int, help="Batch size per GPU/CPU for evaluation."
+        "--eval_batch_size", default=2, type=int, help="Batch size per GPU/CPU for evaluation."
     )
     parser.add_argument("--learning_rate", default=5e-5, type=float, help="The initial learning rate for Adam.")
     parser.add_argument("--weight_decay", default=0.0, type=float, help="Weight decay")
