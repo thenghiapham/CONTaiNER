@@ -296,11 +296,11 @@ def evaluate(args, model, tokenizer, labels, pad_token_label_id, mode, prefix=""
             inputs = {"input_ids": batch[0], "attention_mask": batch[1],
                       "token_type_ids": batch[2]}
             outputs = model(**inputs)
-            hidden_states = outputs[2]
-            output_embedding_mu = outputs[0]
-            output_embedding_sigma = outputs[1]
+            hidden_states = outputs[2].detach()
+            output_embedding_mu = outputs[0].detach()
+            output_embedding_sigma = outputs[1].detach()
 
-            nn_predictions, nn_scores = nearest_neighbor(args, output_embedding_mu, output_embedding_sigma, hidden_states, sup_mus, sup_sigmas, sups, sup_labels, evaluation_criteria=args.evaluation_criteria, num_labels=len(labels))
+        nn_predictions, nn_scores = nearest_neighbor(args, output_embedding_mu, output_embedding_sigma, hidden_states, sup_mus, sup_sigmas, sups, sup_labels, evaluation_criteria=args.evaluation_criteria, num_labels=len(labels))
         if preds is None:
             preds = nn_predictions.detach().cpu().numpy()
             scores = nn_scores.detach().cpu().numpy()
